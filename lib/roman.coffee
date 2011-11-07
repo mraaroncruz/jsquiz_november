@@ -1,5 +1,5 @@
 class Roman
   numberize: (numerals) ->
-    1
+    numerals.split('').length
 
 window.Roman = Roman

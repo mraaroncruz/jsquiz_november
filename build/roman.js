@@ -3,7 +3,7 @@
   Roman = (function() {
     function Roman() {}
     Roman.prototype.numberize = function(numerals) {
-      return 1;
+      return numerals.split('').length;
     };
     return Roman;
   })();
