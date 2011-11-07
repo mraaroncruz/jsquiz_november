@@ -11,7 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
-    - build/**/*.js
+    - vendor/underscore-min.js
+    - build/roman.js
 
 # stylesheets
 #
