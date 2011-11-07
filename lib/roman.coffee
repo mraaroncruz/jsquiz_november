@@ -27,7 +27,22 @@ class Roman
       sum - difference
     else
       numbers[0]
+  
+  romanize: (number) ->
+    dictionary = {}
+    for numeral, value of @dictionary
+      dictionary[value] = numeral
+    dictionary[number]
 
 
 
 window.Roman = Roman
+
+# 3250
+# mx = Math.floor(n / 1000)
+# dx = Math.floor(n - nx * 1000 / 500)
+# cx = 
+# lx = 
+# xx =
+# vx = 
+# ix = 

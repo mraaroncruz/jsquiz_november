@@ -40,6 +40,16 @@
         return numbers[0];
       }
     };
+    Roman.prototype.romanize = function(number) {
+      var dictionary, numeral, value, _ref;
+      dictionary = {};
+      _ref = this.dictionary;
+      for (numeral in _ref) {
+        value = _ref[numeral];
+        dictionary[value] = numeral;
+      }
+      return dictionary[number];
+    };
     return Roman;
   })();
   window.Roman = Roman;
