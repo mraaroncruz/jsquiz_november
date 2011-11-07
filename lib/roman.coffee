@@ -26,46 +26,40 @@ class Roman
       numbers[0]
   
   romanize: (number) ->
-    dictionary = {}
-    numerals = []
-    parts = number.toString().split("")
-    
-    for numeral, value of @dictionary
-      dictionary[value] = numeral
-    while parts.length < 4
-      parts.unshift 0
+    numeralizer = new Numeralizer(number)
+    numeralizer.numerals()
 
+class Numeralizer
+  constructor: (number) ->
+    @number = number
+    @parts = @number.toString().split("")
+    @map =
+      c: ["M", "D"]
+      x: ["C", "L"]
+      i: ["X", "V"]
+    while @parts.length < 4
+      @parts.unshift 0
+  numerals: ->
+    nums = []
+    parts = @parts
+    map = @map
     m = parseInt parts.shift()
     unless m == 0
-      numerals.push [1..m].map( -> "M").join("")
-
-    c = parseInt(parts.shift())
-    unless c == 0
-      numerals.push "CM" if c == 9
-      if c > 5 && c < 9
-        numerals.push "D#{[1..(c - 5)].map( -> "C").join("")}"
-      numerals.push "D" if c == 5
-      numerals.push "CD" if c == 4
-      numerals.push [1..c].map( -> "C").join("") if c < 4
-    
-    x = parseInt parts.shift()
-    unless x == 0
-      numerals.push "XC" if x == 9
-      if x > 5 && x < 9
-        numerals.push "L#{[1..(x - 5)].map( -> "X").join("")}"
-      numerals.push "L" if x == 5
-      numerals.push "XL" if x == 4
-      numerals.push [1..x].map( -> "X").join("") if x < 4
-    
-    i = parseInt parts.shift()
-    console.log i
-    unless i == 0
-      numerals.push "IX" if i == 9
-      if i > 5 && i < 9
-        numerals.push "V#{[1..(i - 5)].map( -> "I").join("")}"
-      numerals.push "V" if i == 5
-      numerals.push "IV" if i == 4
-      numerals.push [1..i].map( -> "I").join("") if i < 4
-    numerals.join ""
+      nums.push [1..m].map( -> "M").join("")
+    _.each ["c", "x", "i"],  (numeral) ->
+      part = parseInt parts.shift()
+      unless part == 0
+        if part == 9
+          nums.push "#{numeral.toUpperCase()}#{map[numeral][0]}"
+        if part > 5 && part < 9
+          nums.push "#{map[numeral][1]}#{[1..(i - 5)].map( -> numeral.toUpperCase()).join("")}"
+        if part == 5
+          nums.push map[numeral][1]
+        if part == 4
+          nums.push "#{numeral.toUpperCase()}#{map[numeral][1]}"
+        if part < 4
+          nums.push [1..part].map( -> numeral.toUpperCase()).join("")
+    nums.join ""
+  
 
 window.Roman = Roman
