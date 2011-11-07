@@ -1,0 +1,5 @@
+.rbenv-version
+vendor/bundle/
+.bundle/
+Gemfile.lock
+bin/
