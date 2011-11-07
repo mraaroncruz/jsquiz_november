@@ -31,6 +31,21 @@ describe("Roman", function() {
         var result = roman.romanize(1);
         expect(result).toEqual("I");           
     });
+
+    it("should convert 4 to IV", function () {
+      var result = roman.romanize(4);
+      expect(result).toEqual("IV");           
+    });
+
+    it("should convert 2494 to MMCDXCIV", function () {
+      var result = roman.romanize(2494);
+      expect(result).toEqual("MMCDXCIV");
+    });
+
+    it("should convert 3392 to MMMCCCXCII", function() {
+      var result = roman.romanize(3392);
+      expect(result).toEqual("MMMCCCXCII");
+    });
   });
 
 });
