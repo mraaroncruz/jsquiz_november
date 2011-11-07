@@ -7,6 +7,6 @@ describe("Roman", function() {
 
   it("should convert I into 1", function() {
     var result = roman.numberize("I")
-    expect(number).toEqual(1);
+    expect(result).toEqual(1);
   });
 });

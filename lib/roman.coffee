@@ -1,2 +1,5 @@
-->
-  console.log("hello coffee")
+class Roman
+  numberize: (numerals) ->
+    1
+
+window.Roman = Roman
