@@ -48,7 +48,7 @@ app.get '/images/:letter', (req, res) ->
         url: getURL(photo)
       res.send JSON.stringify(photos)
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
 
 process.on 'uncaughtException', (err) ->
     console.log(err)
