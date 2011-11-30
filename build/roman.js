@@ -32,7 +32,7 @@
         });
         sum = _(numbers).reduce(function(sum, number) {
           return number + sum;
-        }, 0);
+        });
         return sum - difference;
       } else {
         return numbers[0];

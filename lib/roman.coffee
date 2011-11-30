@@ -20,7 +20,6 @@ class Roman
           difference += numbers[prev] * 2
       sum = _(numbers).reduce (sum, number) ->
         number + sum
-      , 0
       sum - difference
     else
       numbers[0]
@@ -60,6 +59,5 @@ class Numeralizer
         if part < 4
           nums.push [1..part].map( -> numeral.toUpperCase()).join("")
     nums.join ""
-  
 
 window.Roman = Roman
