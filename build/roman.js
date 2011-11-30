@@ -1,6 +1,8 @@
 (function() {
   var Numeralizer, Roman;
+
   Roman = (function() {
+
     function Roman() {
       this.dictionary = {
         "I": 1,
@@ -12,6 +14,7 @@
         "M": 1000
       };
     }
+
     Roman.prototype.numberize = function(numerals) {
       var dictionary, difference, numbers, sum, _i, _ref, _results;
       dictionary = this.dictionary;
@@ -38,14 +41,19 @@
         return numbers[0];
       }
     };
+
     Roman.prototype.romanize = function(number) {
       var numeralizer;
       numeralizer = new Numeralizer(number);
       return numeralizer.numerals();
     };
+
     return Roman;
+
   })();
+
   Numeralizer = (function() {
+
     function Numeralizer(number) {
       this.number = number;
       this.parts = this.number.toString().split("");
@@ -58,6 +66,7 @@
         this.parts.unshift(0);
       }
     }
+
     Numeralizer.prototype.numerals = function() {
       var m, map, nums, parts, _i, _results;
       nums = [];
@@ -89,9 +98,7 @@
               return numeral.toUpperCase();
             }).join("")));
           }
-          if (part === 5) {
-            nums.push(map[numeral][1]);
-          }
+          if (part === 5) nums.push(map[numeral][1]);
           if (part === 4) {
             nums.push("" + (numeral.toUpperCase()) + map[numeral][1]);
           }
@@ -108,7 +115,11 @@
       });
       return nums.join("");
     };
+
     return Numeralizer;
+
   })();
-  window.Roman = Roman;
+
+  module.exports = Roman;
+
 }).call(this);

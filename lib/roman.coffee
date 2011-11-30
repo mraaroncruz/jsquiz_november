@@ -59,5 +59,4 @@ class Numeralizer
         if part < 4
           nums.push [1..part].map( -> numeral.toUpperCase()).join("")
     nums.join ""
-
-window.Roman = Roman
+module.exports = Roman
