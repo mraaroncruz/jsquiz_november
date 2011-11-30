@@ -17,6 +17,7 @@ A site where you can enter a number and get image representations of the roman n
 - Jasmine - BDD
 - Heroku Cedar Stack
 - Flickr API
+- Twitter's Bootstrap - Pretty
 
 ### License
 MIT
