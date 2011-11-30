@@ -1,7 +1,13 @@
 express = require 'express'
 routes  = require './routes'
+_       = require('underscore')._
 Roman   = require './build/roman'
 app = module.exports = express.createServer()
+flickr = require('flickr-reflection')
+flickrOptions =
+  key: process.env.KEY
+  secret: process.env.SECRET
+  apis: ['photos']
 
 # Configuration
 app.configure ->
@@ -24,10 +30,18 @@ app.configure 'production', ->
 app.get '/', (req, res) ->
   res.render 'index.jade', title: "Roman.js"
 
-app.get '/images', (req, res) ->
-  res.send "images baby"
-  # request images
-  # return json collections for IVXDCLM
+getURL = (obj) ->
+  console.log JSON.stringify obj
+  "http://farm#{obj['farm']}.staticflickr.com/#{obj['server']}/#{obj['id']}_#{obj['secret']}.jpg"
+
+app.get '/images/:letter', (req, res) ->
+  letter = req.params.letter
+  obj = {}
+  flickr.connect flickrOptions, (err, api) ->
+    api.photos.search tags: "the letter #{letter}", (err, data) ->
+      photos =  _.map data.photos.photo, (photo) ->
+        url: getURL(photo)
+      res.send JSON.stringify(photos)
 
 app.listen(3000)
 

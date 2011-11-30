@@ -10,18 +10,25 @@
   jQuery(function() {
     var Image, Images;
     Image = (function() {
-      __extends(Image, BackboneModel);
+      __extends(Image, Backbone.Model);
       function Image() {
         Image.__super__.constructor.apply(this, arguments);
       }
       return Image;
     })();
-    return Images = (function() {
-      __extends(Images, BackboneCollection);
+    Images = (function() {
+      __extends(Images, Backbone.Collection);
       function Images() {
         Images.__super__.constructor.apply(this, arguments);
       }
+      Images.prototype.model = Image;
       return Images;
     })();
+    return _.each(["I", "V", "X", "L", "C", "D", "M"], function(letter) {
+      window[letter] = new Images;
+      return $.getJSON("/images/" + letter, function(urls) {
+        return window[letter].reset(urls);
+      });
+    });
   });
 }).call(this);
