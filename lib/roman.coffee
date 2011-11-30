@@ -1,3 +1,5 @@
+_ = require('underscore')._
+
 class Roman
   constructor: ->
     @dictionary = 
@@ -59,4 +61,4 @@ class Numeralizer
         if part < 4
           nums.push [1..part].map( -> numeral.toUpperCase()).join("")
     nums.join ""
-module.exports = Roman
+module.exports = new Roman

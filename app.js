@@ -48,20 +48,26 @@
     });
   });
 
+  app.get('/convert/:number', function(req, res) {
+    return res.send(Roman.romanize(req.params.number));
+  });
+
   getURL = function(obj) {
-    console.log(JSON.stringify(obj));
     return "http://farm" + obj['farm'] + ".staticflickr.com/" + obj['server'] + "/" + obj['id'] + "_" + obj['secret'] + ".jpg";
   };
 
   app.get('/images/:letter', function(req, res) {
     var letter, obj;
     letter = req.params.letter;
+    console.log("LETTER::::: " + letter);
     obj = {};
     return flickr.connect(flickrOptions, function(err, api) {
+      if (err) console.log("ERROR:::: " + err);
       return api.photos.search({
         tags: "the letter " + letter
       }, function(err, data) {
         var photos;
+        if (err) console.log("ERROR INNER:::: " + err);
         photos = _.map(data.photos.photo, function(photo) {
           return {
             url: getURL(photo)
@@ -73,6 +79,10 @@
   });
 
   app.listen(3000);
+
+  process.on('uncaughtException', function(err) {
+    return console.log(err);
+  });
 
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 

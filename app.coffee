@@ -30,19 +30,28 @@ app.configure 'production', ->
 app.get '/', (req, res) ->
   res.render 'index.jade', title: "Roman.js"
 
+app.get '/convert/:number', (req, res) ->
+  res.send Roman.romanize(req.params.number)
+
 getURL = (obj) ->
-  console.log JSON.stringify obj
   "http://farm#{obj['farm']}.staticflickr.com/#{obj['server']}/#{obj['id']}_#{obj['secret']}.jpg"
 
 app.get '/images/:letter', (req, res) ->
   letter = req.params.letter
+  console.log "LETTER::::: #{letter}"
   obj = {}
   flickr.connect flickrOptions, (err, api) ->
+    console.log "ERROR:::: #{err}" if err
     api.photos.search tags: "the letter #{letter}", (err, data) ->
+      console.log "ERROR INNER:::: #{err}" if err
       photos =  _.map data.photos.photo, (photo) ->
         url: getURL(photo)
       res.send JSON.stringify(photos)
 
 app.listen(3000)
+
+process.on 'uncaughtException', (err) ->
+    console.log(err)
+
 
 console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
